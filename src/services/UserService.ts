@@ -13,7 +13,7 @@ export class UserService {
       return { status: "CONFLICT", data: { message: "Email already in use!" } };
     }
 
-    const hashedPassword = await bcrypt.hash(data.password!, 10);
+    const hashedPassword = await bcrypt.hash(data.password, 10);
 
     const user = await UserModel.create({
       ...data,
