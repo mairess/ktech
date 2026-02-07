@@ -7,7 +7,10 @@ const routes = Router();
 const userController = new UserController();
 
 routes.post("/", (req: Request, res: Response) =>
-  userController.create(req, res),
+  userController.register(req, res),
+);
+routes.put("/:id", (req: Request, res: Response) =>
+  userController.update(req, res),
 );
 
 export default routes;

@@ -5,8 +5,16 @@ import statusMapper from "../utils/statusMapper";
 export class UserController {
   private userService = new UserService();
 
-  async create(req: Request, res: Response) {
-    const serviceResponse = await this.userService.create(req.body);
+  async register(req: Request, res: Response) {
+    const serviceResponse = await this.userService.register(req.body);
+    return res
+      .status(statusMapper(serviceResponse.status))
+      .json(serviceResponse.data);
+  }
+
+  async update(req: Request, res: Response) {
+    const { id } = req.params;
+    const serviceResponse = await this.userService.update(req.body, id);
     return res
       .status(statusMapper(serviceResponse.status))
       .json(serviceResponse.data);
