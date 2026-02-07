@@ -10,7 +10,7 @@ export const connection = async () => {
 
   try {
     await mongoose.connect(uri);
-    console.log("✅ Mongo is connected!");
+    console.info("Mongo is connected! ✅");
   } catch (error) {
     console.error("❌ Error connecting Mongo:", error);
     process.exit(1);

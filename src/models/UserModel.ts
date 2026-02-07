@@ -1,10 +1,15 @@
-import type { Document } from "mongoose";
+import type { Document, Types } from "mongoose";
 import { model, Schema } from "mongoose";
 
-export interface IUser extends Document {
+export interface IUser {
   name: string;
   email: string;
   password: string;
+}
+
+export interface IUserDocument extends IUser {
+  _id: Types.ObjectId;
+  __v: number;
 }
 
 const UserSchema = new Schema<IUser>({
@@ -14,9 +19,16 @@ const UserSchema = new Schema<IUser>({
 });
 
 UserSchema.set("toJSON", {
-  transform: (_doc, ret: Partial<IUser>) => {
-    delete ret.password;
-    return ret;
+  transform: (_doc: Document, ret: IUserDocument) => {
+    const { password: _password, __v, ...rest } = ret;
+    return { ...rest, _id: ret._id.toString() };
+  },
+});
+
+UserSchema.set("toObject", {
+  transform: (_doc: Document, ret: IUserDocument) => {
+    const { password: _password, __v, ...rest } = ret;
+    return { ...rest, _id: ret._id.toString() };
   },
 });
 
