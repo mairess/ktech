@@ -4,28 +4,6 @@ import type { ServiceResponse } from "../types";
 import { UserDTO } from "../dto/UserDTO";
 
 export class UserService {
-  async register(data: IUser): Promise<ServiceResponse<UserDTO>> {
-    const foundedUser = await UserModel.findOne({ email: data.email })
-      .lean()
-      .exec();
-
-    if (foundedUser) {
-      return { status: "CONFLICT", data: { message: "Email already in use!" } };
-    }
-
-    const hashedPassword = await bcrypt.hash(data.password, 10);
-
-    const user = await UserModel.create({
-      ...data,
-      password: hashedPassword,
-    });
-
-    return {
-      status: "CREATED",
-      data: new UserDTO(user),
-    };
-  }
-
   async findById(userId: string): Promise<ServiceResponse<UserDTO>> {
     const user = await UserModel.findById(userId).lean().exec();
 

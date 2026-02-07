@@ -10,10 +10,6 @@ const routes = Router();
 
 const userController = new UserController();
 
-routes.post("/", (req: AuthRequest, res: Response) =>
-  userController.register(req, res),
-);
-
 routes.get("/:id", authMiddleware, (req: AuthRequest, res: Response) =>
   userController.findById(req, res),
 );
