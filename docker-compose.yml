@@ -10,7 +10,6 @@ services:
     working_dir: /backend
     volumes:
       - .:/backend
-      - node_modules:/backend/node_modules
     environment:
       - MONGO_URI=mongodb://root:root123@mongo:27017/ktech-db?authSource=admin
       - JWT_SECRET=mkQxzvejnVuUbMtlkdPpByqqWuFvKhRw
