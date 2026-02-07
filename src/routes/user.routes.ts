@@ -1,20 +1,24 @@
-import type { Request, Response } from "express";
+import type { Response } from "express";
 import { Router } from "express";
 import { UserController } from "../controllers/UserController";
+import {
+  authMiddleware,
+  type AuthRequest,
+} from "../middlewares/authMiddleware";
 
 const routes = Router();
 
 const userController = new UserController();
 
-routes.get("/:id", (req: Request, res: Response) =>
-  userController.findById(req, res),
-);
-
-routes.post("/", (req: Request, res: Response) =>
+routes.post("/", (req: AuthRequest, res: Response) =>
   userController.register(req, res),
 );
 
-routes.put("/:id", (req: Request, res: Response) =>
+routes.get("/:id", authMiddleware, (req: AuthRequest, res: Response) =>
+  userController.findById(req, res),
+);
+
+routes.put("/:id", authMiddleware, (req: AuthRequest, res: Response) =>
   userController.updateById(req, res),
 );
 

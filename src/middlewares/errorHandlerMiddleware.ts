@@ -6,7 +6,7 @@ export function errorHandlerMiddleware(
   _req: Request,
   res: Response,
   _next: NextFunction,
-) {
+): Response<{ message: string }> {
   const status = error.statusCode || 500;
   const message = error.message || "Alguma coisa deu errado!";
 

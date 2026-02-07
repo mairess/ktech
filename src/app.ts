@@ -12,7 +12,6 @@ export class App {
     this.app.use(cors());
     this.config();
     this.routes();
-    this.app.get("/", (req, res) => res.json({ message: "Server is up!" }));
     this.app.use(errorHandlerMiddleware);
   }
 
