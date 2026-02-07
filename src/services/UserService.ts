@@ -4,9 +4,7 @@ import type { ServiceResponse } from "../types.js";
 import type { UserDTO } from "../dtos/UserDTO.js";
 
 export class UserService {
-  async create(
-    data: Pick<IUser, "name" | "email" | "password">,
-  ): Promise<ServiceResponse<UserDTO>> {
+  async create(data: IUser): Promise<ServiceResponse<UserDTO>> {
     const foundedUser = await UserModel.findOne({ email: data.email });
 
     if (foundedUser) {
