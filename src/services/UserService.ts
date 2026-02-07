@@ -26,7 +26,20 @@ export class UserService {
     };
   }
 
-  async update(
+  async findById(userId: string): Promise<ServiceResponse<UserDTO>> {
+    const user = await UserModel.findById(userId).lean().exec();
+
+    if (!user) {
+      return { status: "NOT_FOUND", data: { message: "User Not Found!" } };
+    }
+
+    return {
+      status: "SUCCESSFUL",
+      data: new UserDTO(user),
+    };
+  }
+
+  async updateById(
     data: Partial<IUser>,
     userId: string,
   ): Promise<ServiceResponse<UserDTO>> {

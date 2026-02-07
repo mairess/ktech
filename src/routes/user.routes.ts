@@ -6,11 +6,16 @@ const routes = Router();
 
 const userController = new UserController();
 
+routes.get("/:id", (req: Request, res: Response) =>
+  userController.findById(req, res),
+);
+
 routes.post("/", (req: Request, res: Response) =>
   userController.register(req, res),
 );
+
 routes.put("/:id", (req: Request, res: Response) =>
-  userController.update(req, res),
+  userController.updateById(req, res),
 );
 
 export default routes;

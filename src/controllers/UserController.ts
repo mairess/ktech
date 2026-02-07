@@ -12,9 +12,17 @@ export class UserController {
       .json(serviceResponse.data);
   }
 
-  async update(req: Request, res: Response) {
+  async findById(req: Request, res: Response) {
     const { id } = req.params;
-    const serviceResponse = await this.userService.update(req.body, id);
+    const serviceResponse = await this.userService.findById(id);
+    return res
+      .status(statusMapper(serviceResponse.status))
+      .json(serviceResponse.data);
+  }
+
+  async updateById(req: Request, res: Response) {
+    const { id } = req.params;
+    const serviceResponse = await this.userService.updateById(req.body, id);
     return res
       .status(statusMapper(serviceResponse.status))
       .json(serviceResponse.data);
