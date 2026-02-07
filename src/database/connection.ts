@@ -6,7 +6,7 @@ export const connection = async () => {
 
   if (!uri) {
     throw new Error(
-      "❌ MONGO_URI is not defined, impossible create connection",
+      "❌ MONGO_URI is not defined, impossible to create connection.",
     );
   }
 
