@@ -39,10 +39,10 @@ export class App {
     try {
       await connection();
       this.app.listen(PORT, () =>
-        console.info(`🚀 Server is up and Running on localhost:${PORT}`),
+        console.info(`🚀 Server is up and running on localhost:${PORT}.`),
       );
     } catch (error) {
-      console.error("❌ Failed to start app:", error);
+      console.error("❌ Failed to start Server:", error);
       process.exit(1);
     }
   }
