@@ -5,12 +5,14 @@ export const connection = async () => {
   const uri = process.env.MONGO_URI;
 
   if (!uri) {
-    throw new Error("MONGO_URI is not defined!");
+    throw new Error(
+      "❌ MONGO_URI is not defined, impossible create connection",
+    );
   }
 
   try {
     await mongoose.connect(uri);
-    console.info("Mongo is connected! ✅");
+    console.info("✅ Mongo is connected!");
   } catch (error) {
     console.error("❌ Error connecting Mongo:", error);
     process.exit(1);

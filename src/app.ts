@@ -35,10 +35,12 @@ export class App {
     this.app.use(router);
   }
 
-  public async start(PORT: string | number): Promise<void> {
+  public async start(PORT: string): Promise<void> {
     try {
       await connection();
-      this.app.listen(PORT, () => console.log(`Running on port ${PORT} 🚀`));
+      this.app.listen(PORT, () =>
+        console.info(`🚀 Server is up and Running on localhost:${PORT}`),
+      );
     } catch (error) {
       console.error("❌ Failed to start app:", error);
       process.exit(1);

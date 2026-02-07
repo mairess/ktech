@@ -10,9 +10,9 @@ services:
     working_dir: /backend
     volumes:
       - .:/backend
-    environment:
-      - MONGO_URI=mongodb://root:root123@mongo:27017/ktech-db?authSource=admin
-      - JWT_SECRET=mkQxzvejnVuUbMtlkdPpByqqWuFvKhRw
+      - /backend/node_modules
+    env_file:
+      - .env
     depends_on:
       mongo:
         condition: service_healthy
@@ -24,10 +24,8 @@ services:
       - 27017:27017
     volumes:
       - mongo-data:/data/db
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=root123
-      - MONGO_INITDB_DATABASE=ktech-db
+    env_file:
+      - .env
     healthcheck:
       test: ["CMD-SHELL", "mongosh --eval \"db.adminCommand({ ping: 1 })\" || exit 1"]
       interval: 10s
