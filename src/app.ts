@@ -3,6 +3,10 @@ import cors from "cors";
 import router from "./routes";
 import { errorHandlerMiddleware } from "./middlewares/errorHandlerMiddleware";
 import { connection } from "./database/connection";
+import swaggerUi from "swagger-ui-express";
+import { generateSwaggerDoc } from "./docs";
+
+const swaggerDoc = generateSwaggerDoc();
 
 export class App {
   public app: express.Express;
@@ -10,6 +14,7 @@ export class App {
   constructor() {
     this.app = express();
     this.app.use(cors());
+    this.app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc));
     this.config();
     this.routes();
     this.app.use(errorHandlerMiddleware);

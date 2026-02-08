@@ -6,7 +6,10 @@ import {
   type AuthRequest,
 } from "../middlewares/authMiddleware";
 import { Validations } from "../middlewares/validations/validations";
-import { registerSchema } from "../middlewares/validations/schemas";
+import {
+  RegisterRequestSchema,
+  LoginRequestSchema,
+} from "../middlewares/validations/schemas";
 
 const routes = Router();
 
@@ -18,12 +21,14 @@ routes.get("/me", authMiddleware, (req: AuthRequest, res: Response) =>
 
 routes.post(
   "/",
-  Validations.validateRegister(registerSchema),
+  Validations.validateRegister(RegisterRequestSchema),
   (req: AuthRequest, res: Response) => authController.register(req, res),
 );
 
-routes.post("/login", (req: Request, res: Response) =>
-  authController.login(req, res),
+routes.post(
+  "/login",
+  Validations.validateLogin(LoginRequestSchema),
+  (req: Request, res: Response) => authController.login(req, res),
 );
 
 export default routes;

@@ -6,7 +6,7 @@ import {
   type AuthRequest,
 } from "../middlewares/authMiddleware";
 import { Validations } from "../middlewares/validations/validations";
-import { updateSchema } from "../middlewares/validations/schemas";
+import { UpdateUserRequestSchema } from "../middlewares/validations/schemas";
 
 const routes = Router();
 
@@ -19,7 +19,7 @@ routes.get("/:id", authMiddleware, (req: AuthRequest, res: Response) =>
 routes.put(
   "/:id",
   authMiddleware,
-  Validations.validateUpdate(updateSchema),
+  Validations.validateUpdate(UpdateUserRequestSchema),
   (req: AuthRequest, res: Response) => userController.updateById(req, res),
 );
 
