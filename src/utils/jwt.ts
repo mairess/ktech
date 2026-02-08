@@ -1,19 +1,16 @@
 import "dotenv/config";
 import jwt, { type SignOptions } from "jsonwebtoken";
 
-const _SECRET = process.env.JWT_SECRET;
-const _EXPIRES = process.env.JWT_EXPIRES_IN;
+const SECRET = String(process.env.JWT_SECRET);
+const EXPIRES = Number(process.env.JWT_EXPIRES_IN);
 
-if (!_SECRET) {
+if (!SECRET) {
   throw new Error("SECRET is not defined and is mandatory on .env!");
 }
 
-if (!_EXPIRES) {
+if (!EXPIRES) {
   throw new Error("EXPIRES is not defined and is mandatory on .env!");
 }
-
-const SECRET: string = _SECRET;
-const EXPIRES: number = Number(_EXPIRES);
 
 type PayloadJwt = { id: string; email: string };
 

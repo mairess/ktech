@@ -1,13 +1,20 @@
 import { Router } from "express";
 import { AuthController } from "../controllers/AuthController";
 import type { Request, Response } from "express";
-import type { AuthRequest } from "../middlewares/authMiddleware";
+import {
+  authMiddleware,
+  type AuthRequest,
+} from "../middlewares/authMiddleware";
 import { Validations } from "../middlewares/validations/validations";
 import { registerSchema } from "../middlewares/validations/schemas";
 
 const routes = Router();
 
 const authController = new AuthController();
+
+routes.get("/me", authMiddleware, (req: AuthRequest, res: Response) =>
+  authController.me(req, res),
+);
 
 routes.post(
   "/",

@@ -26,7 +26,7 @@ export function authMiddleware(
   const [, token] = authHeader.split(" ");
 
   if (!token) {
-    res.status(401).json({ message: "Token not provided!" });
+    res.status(401).json({ message: "Token not provided or malformed!" });
     return;
   }
 

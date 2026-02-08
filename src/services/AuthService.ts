@@ -3,7 +3,7 @@ import type { ServiceResponse } from "../types";
 import { UserModel, type IUser } from "../models/UserModel";
 import bcrypt from "bcryptjs";
 import { sign } from "../utils/jwt";
-import { UserDTO } from "../dto/UserDTO";
+import { UserDTO, MeDTO } from "../dto";
 
 export class AuthService {
   private userModel = UserModel;
@@ -57,5 +57,21 @@ export class AuthService {
     });
 
     return { status: "SUCCESSFUL", data: { token } };
+  }
+
+  async me(userMail: string): Promise<ServiceResponse<MeDTO>> {
+    const user = await this.userModel.findOne({ email: userMail }).exec();
+
+    if (!user) {
+      return {
+        status: "NOT_FOUND",
+        data: { message: "User not found!" },
+      };
+    }
+
+    return {
+      status: "SUCCESSFUL",
+      data: new MeDTO(user),
+    };
   }
 }
