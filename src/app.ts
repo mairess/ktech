@@ -8,6 +8,10 @@ import { generateSwaggerDoc } from "./docs";
 
 const swaggerDoc = generateSwaggerDoc();
 
+if (!process.env.CORS_ORIGIN) {
+  throw new Error("CORS_ORIGIN not defined!");
+}
+
 export class App {
   public app: express.Express;
 
@@ -21,8 +25,10 @@ export class App {
   }
 
   private corsOptions(): cors.CorsOptions {
+    const origins = process.env.CORS_ORIGIN!.split(",").map((o) => o.trim());
+
     return {
-      origin: process.env.CORS_ORIGIN,
+      origin: origins,
       methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
       allowedHeaders: ["Content-Type", "Authorization"],
       credentials: true,
