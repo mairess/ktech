@@ -8,31 +8,35 @@ import { generateSwaggerDoc } from "./docs";
 
 const swaggerDoc = generateSwaggerDoc();
 
+if (!process.env.CORS_ORIGIN) {
+  throw new Error("CORS_ORIGIN not defined!");
+}
+
 export class App {
   public app: express.Express;
 
   constructor() {
     this.app = express();
-    this.app.use(cors());
+    this.app.use(cors(this.corsOptions()));
     this.app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc));
     this.config();
     this.routes();
     this.app.use(errorHandlerMiddleware);
   }
 
-  private config(): void {
-    const accessControl: express.RequestHandler = (_req, res, next) => {
-      res.header("Access-Control-Allow-Origin", "*");
-      res.header(
-        "Access-Control-Allow-Methods",
-        "GET,POST,DELETE,OPTIONS,PUT,PATCH",
-      );
-      res.header("Access-Control-Allow-Headers", "*");
-      next();
-    };
+  private corsOptions(): cors.CorsOptions {
+    const origins = process.env.CORS_ORIGIN!.split(",").map((o) => o.trim());
 
+    return {
+      origin: origins,
+      methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+      allowedHeaders: ["Content-Type", "Authorization"],
+      credentials: true,
+    };
+  }
+
+  private config(): void {
     this.app.use(express.json());
-    this.app.use(accessControl);
   }
 
   private routes(): void {
