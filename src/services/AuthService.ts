@@ -6,8 +6,11 @@ import { sign } from "../utils/jwt";
 import { UserDTO } from "../dto/UserDTO";
 
 export class AuthService {
+  private userModel = UserModel;
+
   async register(data: IUser): Promise<ServiceResponse<UserDTO>> {
-    const foundedUser = await UserModel.findOne({ email: data.email })
+    const foundedUser = await this.userModel
+      .findOne({ email: data.email })
       .lean()
       .exec();
 
@@ -17,7 +20,7 @@ export class AuthService {
 
     const hashedPassword = await bcrypt.hash(data.password, 10);
 
-    const user = await UserModel.create({
+    const user = await this.userModel.create({
       ...data,
       password: hashedPassword,
     });
@@ -29,7 +32,8 @@ export class AuthService {
   }
 
   async login(data: LoginInput): Promise<ServiceResponse<LoginOutput>> {
-    const user = await UserModel.findOne({ email: data.email })
+    const user = await this.userModel
+      .findOne({ email: data.email })
       .select("+password")
       .exec();
 
