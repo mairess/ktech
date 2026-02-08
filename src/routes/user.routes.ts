@@ -23,4 +23,8 @@ routes.put(
   (req: AuthRequest, res: Response) => userController.updateById(req, res),
 );
 
+routes.delete("/:id", authMiddleware, (req: AuthRequest, res: Response) =>
+  userController.deleteById(req, res),
+);
+
 export default routes;

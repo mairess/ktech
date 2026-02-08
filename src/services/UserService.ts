@@ -57,4 +57,22 @@ export class UserService {
       data: new UserDTO(user),
     };
   }
+
+  async deleteById(
+    userId: string,
+  ): Promise<ServiceResponse<{ message: string }>> {
+    const { deletedCount } = await this.userModel
+      .deleteOne({ _id: userId })
+      .lean()
+      .exec();
+
+    if (!deletedCount) {
+      return { status: "NOT_FOUND", data: { message: "User not found!" } };
+    }
+
+    return {
+      status: "SUCCESSFUL",
+      data: { message: "User deleted successfully!" },
+    };
+  }
 }

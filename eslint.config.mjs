@@ -36,6 +36,7 @@ export default [
       'no-debugger': 'error',
       'no-undef': 'off',
       'no-unreachable': 'error',
+      'no-console': 'warn',
       'require-await': 'error',
       'curly': ['error', 'all'],
       'eqeqeq': ['error', 'always'],
