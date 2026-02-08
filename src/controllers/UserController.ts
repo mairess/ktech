@@ -26,4 +26,12 @@ export class UserController {
       .status(statusMapper(serviceResponse.status))
       .json(serviceResponse.data);
   }
+
+  async deleteById(req: Request<IdParams>, res: Response) {
+    const id = req.params.id;
+    const serviceResponse = await this.userService.deleteById(id);
+    return res
+      .status(statusMapper(serviceResponse.status))
+      .json(serviceResponse.data);
+  }
 }
