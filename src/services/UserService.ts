@@ -1,5 +1,5 @@
 import bcrypt from "bcryptjs";
-import { UserModel, type IUser } from "../models/UserModel";
+import { UserModel, type UserUpdate } from "../models/UserModel";
 import type { ServiceResponse } from "../types";
 import { UserDTO } from "../dto/UserDTO";
 
@@ -18,7 +18,7 @@ export class UserService {
   }
 
   async updateById(
-    data: Partial<IUser>,
+    data: UserUpdate,
     userId: string,
   ): Promise<ServiceResponse<UserDTO>> {
     const user = await UserModel.findById(userId).select("+password");

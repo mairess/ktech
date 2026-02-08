@@ -1,7 +1,12 @@
 import type { Request, Response, NextFunction } from "express";
 import { verify } from "../utils/jwt";
 
-export interface AuthRequest extends Request {
+export interface AuthRequest<P = any, B = any, Q = any> extends Request<
+  P,
+  any,
+  B,
+  Q
+> {
   userId?: string;
   userEmail?: string;
 }
