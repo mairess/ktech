@@ -7,4 +7,7 @@ if (!PORT) {
   throw new Error("PORT is not defined, impossible to start server.");
 }
 
-await new App().start(PORT);
+new App().start(PORT).catch((error) => {
+  console.error("Error ao startar o server:", error);
+  process.exit(1);
+});
