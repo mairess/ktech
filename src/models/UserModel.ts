@@ -7,6 +7,12 @@ export interface IUser {
   password: string;
 }
 
+export type UserUpdate = {
+  name?: string;
+  email?: string;
+  password?: string;
+};
+
 export interface IUserDocument extends IUser {
   _id: Types.ObjectId;
   __v: number;
