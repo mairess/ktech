@@ -33,6 +33,21 @@ export class Validations {
     };
   }
 
+  static validateLogin(schema: ZodSchema): RequestHandler {
+    return (req: Request, res: Response, next: NextFunction): void => {
+      const result = schema.safeParse(req.body);
+      if (!result.success) {
+        const issues = result.error?.issues ?? [];
+        const errors = this.handleErrors(issues);
+        res.status(400).json({ message: errors });
+        return;
+      }
+
+      req.body = result.data;
+      next();
+    };
+  }
+
   private static capitalizeFirstLetter(text: string): string {
     return text.charAt(0).toUpperCase() + text.slice(1);
   }
