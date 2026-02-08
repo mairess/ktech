@@ -1,14 +1,14 @@
 import { OpenAPIRegistry } from "@asteasolutions/zod-to-openapi";
 import {
-  registerSchema,
-  ValidationErrorRegisterAndUpdateSchema,
-  loginSchema,
+  RegisterRequestSchema,
+  RegisterValidationErrorSchema,
+  LoginRequestSchema,
   TokenResponseSchema,
-  InvalidCredentialErrorSchema,
-  ValidationErrorLoginSchema,
+  InvalidCredentialsErrorSchema,
+  LoginValidationErrorSchema,
   UnauthorizedErrorSchema,
   UserNotFoundErrorSchema,
-  MeSchema,
+  MeResponseSchema,
 } from "../middlewares/validations/schemas";
 
 export const authRegistry = new OpenAPIRegistry();
@@ -29,14 +29,16 @@ authRegistry.registerPath({
   summary: "Register a user",
   tags: ["Auth"],
   request: {
-    body: { content: { "application/json": { schema: registerSchema } } },
+    body: {
+      content: { "application/json": { schema: RegisterRequestSchema } },
+    },
   },
   responses: {
     201: { description: "Created successfully" },
     400: {
       description: "Validation error",
       content: {
-        "application/json": { schema: ValidationErrorRegisterAndUpdateSchema },
+        "application/json": { schema: RegisterValidationErrorSchema },
       },
     },
   },
@@ -48,7 +50,7 @@ authRegistry.registerPath({
   summary: "Login",
   tags: ["Auth"],
   request: {
-    body: { content: { "application/json": { schema: loginSchema } } },
+    body: { content: { "application/json": { schema: LoginRequestSchema } } },
   },
   responses: {
     200: {
@@ -59,12 +61,12 @@ authRegistry.registerPath({
     },
     400: {
       description: "Validation error",
-      content: { "application/json": { schema: ValidationErrorLoginSchema } },
+      content: { "application/json": { schema: LoginValidationErrorSchema } },
     },
     401: {
       description: "Invalid credentials",
       content: {
-        "application/json": { schema: InvalidCredentialErrorSchema },
+        "application/json": { schema: InvalidCredentialsErrorSchema },
       },
     },
   },
@@ -80,7 +82,7 @@ authRegistry.registerPath({
     200: {
       description: "Successfully get my infos",
       content: {
-        "application/json": { schema: MeSchema },
+        "application/json": { schema: MeResponseSchema },
       },
     },
     401: {

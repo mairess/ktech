@@ -1,12 +1,12 @@
 import { OpenAPIRegistry } from "@asteasolutions/zod-to-openapi";
 import {
-  UserByIdSchema,
+  UserResponseSchema,
   UnauthorizedErrorSchema,
   UserNotFoundErrorSchema,
-  updateSchema,
-  EmailInUseSchemaError,
-  ValidationErrorRegisterAndUpdateSchema,
-  DeleteUserSchema,
+  UpdateUserRequestSchema,
+  EmailInUseErrorSchema,
+  RegisterValidationErrorSchema,
+  DeleteUserResponseSchema,
 } from "../middlewares/validations/schemas";
 
 export const userRegistry = new OpenAPIRegistry();
@@ -42,23 +42,19 @@ userRegistry.registerPath({
     200: {
       description: "Successfully found",
       content: {
-        "application/json": { schema: UserByIdSchema },
+        "application/json": { schema: UserResponseSchema },
       },
     },
     401: {
       description: "Unauthorized errors",
       content: {
-        "application/json": {
-          schema: UnauthorizedErrorSchema,
-        },
+        "application/json": { schema: UnauthorizedErrorSchema },
       },
     },
     404: {
       description: "User not found",
       content: {
-        "application/json": {
-          schema: UserNotFoundErrorSchema,
-        },
+        "application/json": { schema: UserNotFoundErrorSchema },
       },
     },
   },
@@ -69,10 +65,12 @@ userRegistry.registerPath({
   path: "/users/{id}",
   summary: "Updates user by its id",
   tags: ["User"],
-  request: {
-    body: { content: { "application/json": { schema: updateSchema } } },
-  },
   security: [{ [bearerAuth.name]: [] }],
+  request: {
+    body: {
+      content: { "application/json": { schema: UpdateUserRequestSchema } },
+    },
+  },
   parameters: [
     {
       name: "id",
@@ -88,39 +86,31 @@ userRegistry.registerPath({
     200: {
       description: "Successfully updated",
       content: {
-        "application/json": { schema: updateSchema },
+        "application/json": { schema: UserResponseSchema },
       },
     },
     400: {
       description: "Validation error",
       content: {
-        "application/json": {
-          schema: ValidationErrorRegisterAndUpdateSchema,
-        },
+        "application/json": { schema: RegisterValidationErrorSchema },
       },
     },
     401: {
       description: "Unauthorized errors",
       content: {
-        "application/json": {
-          schema: UnauthorizedErrorSchema,
-        },
+        "application/json": { schema: UnauthorizedErrorSchema },
       },
     },
     404: {
       description: "User not found",
       content: {
-        "application/json": {
-          schema: UserNotFoundErrorSchema,
-        },
+        "application/json": { schema: UserNotFoundErrorSchema },
       },
     },
     409: {
       description: "Email already in use",
       content: {
-        "application/json": {
-          schema: EmailInUseSchemaError,
-        },
+        "application/json": { schema: EmailInUseErrorSchema },
       },
     },
   },
@@ -145,25 +135,21 @@ userRegistry.registerPath({
   ],
   responses: {
     200: {
-      description: "Successfully updated",
+      description: "Successfully deleted",
       content: {
-        "application/json": { schema: DeleteUserSchema },
+        "application/json": { schema: DeleteUserResponseSchema },
       },
     },
     401: {
       description: "Unauthorized errors",
       content: {
-        "application/json": {
-          schema: UnauthorizedErrorSchema,
-        },
+        "application/json": { schema: UnauthorizedErrorSchema },
       },
     },
     404: {
       description: "User not found",
       content: {
-        "application/json": {
-          schema: UserNotFoundErrorSchema,
-        },
+        "application/json": { schema: UserNotFoundErrorSchema },
       },
     },
   },
