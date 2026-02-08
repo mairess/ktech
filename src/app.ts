@@ -13,26 +13,24 @@ export class App {
 
   constructor() {
     this.app = express();
-    this.app.use(cors());
+    this.app.use(cors(this.corsOptions()));
     this.app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc));
     this.config();
     this.routes();
     this.app.use(errorHandlerMiddleware);
   }
 
-  private config(): void {
-    const accessControl: express.RequestHandler = (_req, res, next) => {
-      res.header("Access-Control-Allow-Origin", "*");
-      res.header(
-        "Access-Control-Allow-Methods",
-        "GET,POST,DELETE,OPTIONS,PUT,PATCH",
-      );
-      res.header("Access-Control-Allow-Headers", "*");
-      next();
+  private corsOptions(): cors.CorsOptions {
+    return {
+      origin: process.env.CORS_ORIGIN,
+      methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+      allowedHeaders: ["Content-Type", "Authorization"],
+      credentials: true,
     };
+  }
 
+  private config(): void {
     this.app.use(express.json());
-    this.app.use(accessControl);
   }
 
   private routes(): void {
