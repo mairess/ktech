@@ -10,7 +10,7 @@ export class UserService {
     const user = await this.userModel.findById(userId).lean().exec();
 
     if (!user) {
-      return { status: "NOT_FOUND", data: { message: "User Not Found!" } };
+      return { status: "NOT_FOUND", data: { message: "User not found!" } };
     }
 
     return {

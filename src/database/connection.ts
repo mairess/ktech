@@ -6,16 +6,18 @@ export const connection = async () => {
 
   if (!uri) {
     throw new Error(
-      "❌ MONGO_URI is not defined, impossible to create connection.",
+      "MONGO_URI is not defined, impossible to create connection.",
     );
   }
 
   try {
     await mongoose.connect(uri);
     const dbName = mongoose.connection.name;
-    console.info(`✅ Connected to MongoDB: ${dbName} is up and ready to go.`);
+    console.info(
+      `[OK]: Connected to MongoDB: ${dbName} is up and ready to go.`,
+    );
   } catch (error) {
-    console.info(`❌ Failed to connected to MongoDB: ${error}`);
+    console.info(`[ERROR]: Failed to connected to MongoDB: ${error}`);
     process.exit(1);
   }
 };

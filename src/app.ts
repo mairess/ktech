@@ -52,11 +52,13 @@ export class App {
     try {
       await connection();
       this.app.listen(PORT, () =>
-        console.info(`🚀 Server is up and running on localhost:${PORT}.`),
+        console.info(`[OK]: Server is up and running on localhost:${PORT}.`),
       );
     } catch (error) {
-      console.error("❌ Failed to start Server:", error);
+      console.error("[ERROR]: Failed to start app:", error);
       process.exit(1);
     }
   }
 }
+
+export const { app } = new App();
