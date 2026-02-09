@@ -1,8 +1,8 @@
-# 🚀 KTech API
+# KTech API
 
-Pequena API REST em Node.js + Express + TypeScript + MongoDB, com autenticação JWT e documentação Swagger.
+Pequena API REST em Node.js + Express + TypeScript + MongoDB, com autenticação por JWT, testes com Supertest e Jest e documentação com Swagger.
 
-## 📦 Tecnologias
+## Tecnologias
 - Node.js
 - Express
 - TypeScript
@@ -12,6 +12,8 @@ Pequena API REST em Node.js + Express + TypeScript + MongoDB, com autenticação
 - Zod
 - Swagger
 - Docker + Docker Compose
+- Supertest
+- Jest
 
 ## Pré-requisitos
 
@@ -19,7 +21,7 @@ Você precisa ter instalado:
 
 - Docker
 
-### ⚙️ Variáveis de ambiente
+### Variáveis de ambiente
 Crie um arquivo `.env` na raiz do projeto (ou copie `.env.example`) com pelo menos as seguintes variáveis:
 
 ```env
@@ -38,7 +40,7 @@ MONGO_INITDB_DATABASE=ktech-db
 CORS_ORIGIN=https://api.maires.dev,https://www.api.maires.dev,http://localhost:3001
 ```
 
-## 🐳 Executando com Docker Compose
+## Executando com Docker Compose
 No diretório do projeto:
 ```sh
 docker compose up -d --build
@@ -57,14 +59,14 @@ Parar serviços:
 docker compose down
 ```
 
-## 📚 Docs / Swagger
+## Docs / Swagger
 Após subir a aplicação, a documentação Swagger estará em:
 
 ```sh
 http://localhost:3001/api-docs # porta conforme APP_PORT
 ```
 
-## 🔐 Autenticação
+## Autenticação
 
 A API utiliza JWT, o fluxo é:
 
@@ -80,14 +82,22 @@ Enviar no header:
 Authorization: Bearer SEU_TOKEN
 ```
 
-## 🧪 Scripts úteis
+## Testes
+
+O projeto possui testes automatizados utilizando Jest e Supertest
+```sh
+npm test
+```
+
+
+##  Scripts úteis
 
 ```sh
 npm run dev        # desenvolvimento
 npm run lint       # lint
 ```
 
-## 📁 Estrutura do projeto
+## Estrutura do projeto
 
 ``` sh
 .

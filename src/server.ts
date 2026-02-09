@@ -8,6 +8,6 @@ if (!PORT) {
 }
 
 new App().start(PORT).catch((error) => {
-  console.error("Error ao startar o server:", error);
+  console.error("[ERROR]: Failed to start server", error);
   process.exit(1);
 });

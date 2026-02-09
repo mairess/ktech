@@ -8,7 +8,9 @@ import { userRegistry } from "./user.docs";
 export function generateSwaggerDoc() {
   const corsOrigin = process.env.CORS_ORIGIN;
   if (!corsOrigin) {
-    throw new Error("❌ CORS_ORIGIN is not defined, impossible generate docs.");
+    throw new Error(
+      "[ERROR]: CORS_ORIGIN is not defined, impossible generate docs.",
+    );
   }
 
   const servers = corsOrigin.split(",").map((url) => ({
