@@ -1,6 +1,6 @@
 import { UserService } from "../services/UserService";
 import type { Request, Response } from "express";
-import { statusMapper } from "../utils/statusMapper";
+import { statusMapper } from "../utils";
 import type { UserUpdate } from "../models/UserModel";
 
 export type IdParams = {

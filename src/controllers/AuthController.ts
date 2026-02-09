@@ -1,6 +1,6 @@
 import { AuthService } from "../services/AuthService";
 import type { Request, Response } from "express";
-import { statusMapper } from "../utils/statusMapper";
+import { statusMapper } from "../utils";
 import type { User } from "../middlewares/validations/schemas";
 import type { AuthRequest } from "../middlewares/authMiddleware";
 

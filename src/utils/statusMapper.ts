@@ -1,4 +1,4 @@
-export function statusMapper(status: keyof typeof httpMapper): number {
+function statusMapper(status: keyof typeof httpMapper): number {
   return httpMapper[status];
 }
 
@@ -12,3 +12,5 @@ const httpMapper = {
   UNPROCESSABLE_CONTENT: 422,
   default: 500,
 };
+
+export default statusMapper;

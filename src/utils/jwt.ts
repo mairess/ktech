@@ -14,7 +14,7 @@ if (!EXPIRES) {
 
 type PayloadJwt = { id: string; email: string };
 
-export function sign(payload: PayloadJwt): string {
+function sign(payload: PayloadJwt): string {
   const options: SignOptions = {
     expiresIn: Number(EXPIRES),
   };
@@ -22,7 +22,7 @@ export function sign(payload: PayloadJwt): string {
   return jwt.sign({ ...payload }, String(SECRET), options);
 }
 
-export function verify(token: string): PayloadJwt | string {
+function verify(token: string): PayloadJwt | string {
   try {
     return jwt.verify(token, String(SECRET)) as PayloadJwt;
   } catch (error) {
@@ -30,3 +30,8 @@ export function verify(token: string): PayloadJwt | string {
     return "Token must be a valid token!";
   }
 }
+
+export default {
+  sign,
+  verify,
+};

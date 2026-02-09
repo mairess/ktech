@@ -1,4 +1,2 @@
-import { UserDTO } from "./UserDTO";
-import { MeDTO } from "./MeDTO";
-
-export { UserDTO, MeDTO };
+export { default as UserDTO } from "./UserDTO";
+export { default as MeDTO } from "./MeDTO";

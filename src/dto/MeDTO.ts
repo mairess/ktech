@@ -1,6 +1,6 @@
 import type { IUserDocument } from "../models/UserModel";
 
-export class MeDTO {
+class MeDTO {
   public name: string;
   public email: string;
 
@@ -9,3 +9,5 @@ export class MeDTO {
     this.email = user.email;
   }
 }
+
+export default MeDTO;

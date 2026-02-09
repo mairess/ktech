@@ -11,3 +11,5 @@ export class UserDTO {
     this.email = user.email;
   }
 }
+
+export default UserDTO;

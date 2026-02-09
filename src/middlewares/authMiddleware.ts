@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from "express";
-import { verify } from "../utils/jwt";
+import { jwt } from "../utils";
 
 export interface AuthRequest<P = any, B = any, Q = any> extends Request<
   P,
@@ -31,7 +31,7 @@ export function authMiddleware(
   }
 
   try {
-    const decoded = verify(token);
+    const decoded = jwt.verify(token);
 
     if (typeof decoded === "string") {
       res.status(401).json({ message: decoded });

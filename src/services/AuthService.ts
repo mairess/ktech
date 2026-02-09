@@ -2,7 +2,7 @@ import type { LoginInput, LoginOutput } from "../interface/ILogin";
 import type { ServiceResponse } from "../types";
 import { UserModel, type IUser } from "../models/UserModel";
 import bcrypt from "bcryptjs";
-import { sign } from "../utils/jwt";
+import { jwt } from "../utils";
 import { UserDTO, MeDTO } from "../dto";
 
 export class AuthService {
@@ -51,7 +51,7 @@ export class AuthService {
       };
     }
 
-    const token = sign({
+    const token = jwt.sign({
       id: user.id,
       email: user.email,
     });
