@@ -1,22 +1,14 @@
-function statusMapper(status: string): number {
-  switch (status) {
-    case "SUCCESSFUL":
-      return 200;
-    case "CREATED":
-      return 201;
-    case "BAD_REQUEST":
-      return 400;
-    case "UNAUTHORIZED":
-      return 401;
-    case "NOT_FOUND":
-      return 404;
-    case "CONFLICT":
-      return 409;
-    case "UNPROCESSABLE_CONTENT":
-      return 422;
-    default:
-      return 500;
-  }
+export function statusMapper(status: keyof typeof httpMapper): number {
+  return httpMapper[status];
 }
 
-export default statusMapper;
+const httpMapper = {
+  SUCCESSFUL: 200,
+  CREATED: 201,
+  BAD_REQUEST: 400,
+  UNAUTHORIZED: 401,
+  NOT_FOUND: 404,
+  CONFLICT: 409,
+  UNPROCESSABLE_CONTENT: 422,
+  default: 500,
+};
