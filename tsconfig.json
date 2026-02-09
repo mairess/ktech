@@ -3,7 +3,7 @@
   "compilerOptions": {
     "ignoreDeprecations": "5.0",
     // File Layout
-    "rootDir": "./src",
+    "rootDir": ".",
     "outDir": "./dist",
 
     // Environment Settings
@@ -16,8 +16,7 @@
     // "types": [],
     // For nodejs:
     "lib": ["ES2022"],
-    "types": ["node"],
-    // and npm install -D @types/node
+    "types": ["node", "jest"],
 
     // Other Outputs
     "sourceMap": true,
@@ -49,6 +48,6 @@
     "forceConsistentCasingInFileNames": true
   },
 
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "test/**/*"],
   "exclude": ["node_modules", "dist"]
 }

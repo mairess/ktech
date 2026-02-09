@@ -93,9 +93,17 @@ npm run lint       # lint
 .
 ├── docker-compose.yml
 ├── Dockerfile
+├── .dockerignore
+├── .env
+├── .env.example
 ├── eslint.config.mjs
+├── .github
+│   └── workflows
+│       └── main.yml
+├── .gitignore
 ├── package.json
 ├── package-lock.json
+├── .prettierrc
 ├── README.md
 ├── src
 │   ├── app.ts
@@ -137,7 +145,12 @@ npm run lint       # lint
 │   │   └── UserService.ts
 │   ├── types.ts
 │   └── utils
+│       ├── index.ts
 │       ├── jwt.ts
 │       └── statusMapper.ts
-└── tsconfig.json
+├── tsconfig.json
+└── .vscode
+    └── settings.json
+
+16 directories, 44 files
 ```
