@@ -17,6 +17,7 @@ export class App {
 
   constructor() {
     this.app = express();
+    this.app.set("trust proxy", true);
     this.app.use(cors(this.corsOptions()));
     this.app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc));
     this.config();
