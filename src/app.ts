@@ -6,8 +6,6 @@ import { connection } from "./database/connection";
 import swaggerUi from "swagger-ui-express";
 import { generateSwaggerDoc } from "./docs";
 
-const swaggerDoc = generateSwaggerDoc();
-
 if (!process.env.CORS_ORIGIN) {
   throw new Error("CORS_ORIGIN not defined!");
 }
@@ -19,7 +17,11 @@ export class App {
     this.app = express();
     this.app.set("trust proxy", true);
     this.app.use(cors(this.corsOptions()));
-    this.app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc));
+    this.app.use(
+      "/api-docs",
+      swaggerUi.serve,
+      swaggerUi.setup(generateSwaggerDoc()),
+    );
     this.config();
     this.routes();
     this.app.use(errorHandlerMiddleware);
