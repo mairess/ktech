@@ -19,7 +19,7 @@ Você precisa ter instalado:
 
 - Docker
 
-## ⚙️ Variáveis de ambiente
+### ⚙️ Variáveis de ambiente
 Crie um arquivo `.env` na raiz do projeto (ou copie `.env.example`) com pelo menos as seguintes variáveis:
 
 ```env
@@ -33,6 +33,9 @@ JWT_EXPIRES_IN=86400
 MONGO_INITDB_ROOT_USERNAME=root
 MONGO_INITDB_ROOT_PASSWORD=root123
 MONGO_INITDB_DATABASE=ktech-db
+
+
+CORS_ORIGIN=https://api.maires.dev,https://www.api.maires.dev,http://localhost:3001
 ```
 
 ## 🐳 Executando com Docker Compose
@@ -58,20 +61,18 @@ docker compose down
 Após subir a aplicação, a documentação Swagger estará em:
 
 ```sh
-http://localhost:3001/api-docs ## porta conforme APP_PORT
+http://localhost:3001/api-docs # porta conforme APP_PORT
 ```
 
 ## 🔐 Autenticação
 
-A API utiliza JWT.
+A API utiliza JWT, o fluxo é:
 
-1. Fluxo:
+1. Registrar usuário
 
-2. Registrar usuário
+2. Fazer login
 
-3. Fazer login
-
-4. Receber token
+3. Receber token
 
 Enviar no header:
 
