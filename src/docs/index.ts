@@ -24,7 +24,7 @@ export function generateSwaggerDoc() {
     info: {
       title: "KTech API",
       version: "1.0.0",
-      description: "Documentação da API KTech usando Zod e Swagger",
+      description: "API KTech with Zod and Swagger",
     },
     servers,
   });
