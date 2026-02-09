@@ -1,7 +1,7 @@
 import request from "supertest";
 import { app } from "../../src/app";
 
-describe("User Controller - Authenticated Routes", () => {
+describe("Controllers - Authenticated Routes", () => {
   let token: string;
   let userId: string;
 
@@ -38,6 +38,7 @@ describe("User Controller - Authenticated Routes", () => {
       const response = await request(app).get("/auth/me");
 
       expect(response.status).toBe(401);
+      expect(response.body).toEqual({ message: "Token not provided!" });
     });
 
     it("should return 401 with invalid token", async () => {
@@ -46,6 +47,9 @@ describe("User Controller - Authenticated Routes", () => {
         .set("Authorization", "Bearer tokenInvalido123");
 
       expect(response.status).toBe(401);
+      expect(response.body).toEqual({
+        message: "Token must be a valid token!",
+      });
     });
   });
 
@@ -80,6 +84,7 @@ describe("User Controller - Authenticated Routes", () => {
       });
 
       expect(response.status).toBe(401);
+      expect(response.body).toEqual({ message: "Token not provided!" });
     });
   });
 
@@ -90,15 +95,19 @@ describe("User Controller - Authenticated Routes", () => {
         .set("Authorization", `Bearer ${token}`);
 
       expect(response.status).toBe(200);
+      expect(response.body).toEqual({ message: "User deleted successfully!" });
     });
 
     it("should return 401 without token", async () => {
       const response = await request(app).delete(`/users/${userId}`);
 
       expect(response.status).toBe(401);
+      expect(response.body).toEqual({
+        message: "Token not provided!",
+      });
     });
 
-    it("should return 404 when trying to get deleted user", async () => {
+    it("should return 401 or 404 when using token of deleted user", async () => {
       await request(app)
         .delete(`/users/${userId}`)
         .set("Authorization", `Bearer ${token}`);

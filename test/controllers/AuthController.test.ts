@@ -1,7 +1,7 @@
 import request from "supertest";
 import { app } from "../../src/app";
 
-describe("User Creation", () => {
+describe("Auth Controller - Register", () => {
   it("should register a user successfully", async () => {
     const response = await request(app).post("/auth").send({
       name: "Maires Souza",
@@ -15,7 +15,7 @@ describe("User Creation", () => {
   });
 });
 
-describe("User Login", () => {
+describe("Auth Controller - Login", () => {
   it("should login successfully and return a token", async () => {
     await request(app).post("/auth").send({
       name: "Maires Souza",
@@ -32,7 +32,7 @@ describe("User Login", () => {
     expect(response.body).toHaveProperty("token");
   });
 
-  it("should fail login with wrong password", async () => {
+  it("should return 401 with wrong password", async () => {
     await request(app).post("/auth").send({
       name: "Maires Souza",
       email: "maires@gmail.com",
@@ -45,14 +45,20 @@ describe("User Login", () => {
     });
 
     expect(response.status).toBe(401);
+    expect(response.body).toEqual({
+      message: "Invalid email or password!",
+    });
   });
 
-  it("should fail login with non-existent user", async () => {
+  it("should return 401 with non-existent user", async () => {
     const response = await request(app).post("/auth/login").send({
       email: "naoexiste@gmail.com",
       password: "123456",
     });
 
     expect(response.status).toBe(401);
+    expect(response.body).toEqual({
+      message: "Invalid email or password!",
+    });
   });
 });
