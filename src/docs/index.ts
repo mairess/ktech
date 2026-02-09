@@ -11,6 +11,10 @@ export function generateSwaggerDoc() {
     throw new Error("❌ CORS_ORIGIN is not defined, impossible generate docs.");
   }
 
+  const servers = corsOrigin.split(",").map((url) => ({
+    url: url.trim(),
+  }));
+
   const registry = new OpenAPIRegistry([authRegistry, userRegistry]);
 
   const generator = new OpenApiGeneratorV3(registry.definitions);
@@ -22,6 +26,6 @@ export function generateSwaggerDoc() {
       version: "1.0.0",
       description: "Documentação da API KTech usando Zod e Swagger",
     },
-    servers: [{ url: corsOrigin }],
+    servers,
   });
 }
